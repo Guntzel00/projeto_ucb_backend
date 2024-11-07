@@ -15,6 +15,7 @@ app.use('/api/banco-sangue', require('./routes/bancoSangueRoutes'));
 app.use('/api/exames', require('./routes/exameRoutes'));
 app.use('/api/termo', require('./routes/termoDoacaoRoutes'));
 app.use('/api/usuarios', require('./routes/usuarioRoutes'));
+app.use('/api/centros-doacao', require('./routes/centroDoacaoRoutes')); // Nova rota para centros de doação
 
 // Iniciar servidor
 const PORT = process.env.PORT || 5000;
