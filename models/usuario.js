@@ -1,30 +1,20 @@
 // models/usuario.js
 const mongoose = require('mongoose');
 
-const EnderecoSchema = new mongoose.Schema({
-  rua: String,
-  numero: Number,
-  complemento: String,
-  bairro: String,
-  cidade: String,
-  estado: String,
-  cep: String,
-});
-
 const UsuarioSchema = new mongoose.Schema({
-  nome: String,
-  email: String,
-  senha: String,
-  telefone: String,
-  cpf: String,
-  rg: String,
-  dataNascimento: String,
-  peso: Number,
-  sexo: String,
-  endereco: EnderecoSchema,
-  tipoSanguineo: String,
-  termoAssinado: Boolean,
-  codigoRecuperacao: Number, // Adicionado para recuperação de senha
+	nome: String,
+	sobrenome: String,
+	email: String,
+	senha: String,
+	telefone: String,
+	cpf: String,
+	rg: String,
+	dataNascimento: String,
+	peso: Number,
+	sexo: String,
+	endereco: String,
+	cep: String,
+	codigoRecuperacao: Number, // Adicionado para recuperação de senha
 });
 
 module.exports = mongoose.model('Usuario', UsuarioSchema);
