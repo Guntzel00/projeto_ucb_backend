@@ -23,7 +23,8 @@ const UsuarioSchema = new mongoose.Schema({
   sexo: String,
   endereco: EnderecoSchema,
   tipoSanguineo: String,
-  termoAssinado: Boolean
+  termoAssinado: Boolean,
+  codigoRecuperacao: Number, // Adicionado para recuperação de senha
 });
 
 module.exports = mongoose.model('Usuario', UsuarioSchema);
