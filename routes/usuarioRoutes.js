@@ -6,6 +6,15 @@ const { authMiddleware } = require('../middleware/authMiddleware');
 router.post('/cadastrar', usuarioController.cadastrar);
 router.post('/login', usuarioController.login);
 router.post('/recuperar-senha', usuarioController.recuperarSenha);
+router.post(
+	'/recuperar-senha/solicitar',
+	usuarioController.solicitarCodigoRecuperacao
+);
+router.post(
+	'/recuperar-senha/verificar',
+	usuarioController.verificarCodigoRecuperacao
+);
+router.post('/recuperar-senha/redefinir', usuarioController.redefinirSenha);
 
 // Rotas protegidas - Requer autenticação
 router.get('/listar', authMiddleware, usuarioController.listarUsuarios);
