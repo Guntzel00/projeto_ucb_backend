@@ -1,6 +1,7 @@
 // controllers/usuarioController.js
 const UsuarioService = require('../services/usuarioService');
 const UsuarioExistenteException = require('../exceptions/usuarioExistenteException');
+const usuario = require('../models/usuario');
 
 exports.cadastrar = async (req, res) => {
 	try {
