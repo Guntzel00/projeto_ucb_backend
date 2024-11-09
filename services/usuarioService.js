@@ -107,10 +107,27 @@ exports.verificarCodigoRecuperacao = async (email, codigoRecuperacao) => {
 exports.atualizarSenha = async (email, novaSenha) => {
 	const usuario = await Usuario.findOne({ email });
 	if (usuario) {
-		usuario.senha = novaSenha;
-		usuario.codigoRecuperacao = null; // Opcionalmente, remova o código após o uso
+		// Criptografar a nova senha
+		const salt = await bcrypt.genSalt(10);
+		usuario.senha = await bcrypt.hash(novaSenha, salt);
+
+		// Opcionalmente, remova o código de recuperação após o uso
+		usuario.codigoRecuperacao = null;
+		
+		// Salva o usuário com a nova senha
 		await usuario.save();
-		return true;
+		
+		// Gerar um novo token JWT após a atualização da senha
+		const token = jwt.sign(
+			{ _id: usuario._id, email: usuario.email },
+			process.env.JWT_SECRET,
+			{ expiresIn: '1h' } // Token válido por 1 hora
+		);
+
+		// Retornar o token junto com a confirmação de sucesso
+		return { success: true, token };
 	}
-	return false;
+	
+	// Retorna falso se o usuário não foi encontrado
+	return { success: false };
 };
