@@ -78,14 +78,18 @@ exports.obterUsuario = async (req, res) => {
 		// Retorna todos os campos solicitados, incluindo `id`, `cep` e `endereco`
 		res.json({
 			id: usuario._id,
+			nome: usuario.nome,
+			sobrenome: usuario.sobrenome,
 			email: usuario.email,
-			peso: usuario.peso,
-			dataNascimento: usuario.dataNascimento,
-			cep: usuario.cep,
-			rg: usuario.rg,
+			telefone: usuario.telefone,
 			cpf: usuario.cpf,
+			rg: usuario.rg,
+			dataNascimento: usuario.dataNascimento,
+			peso: usuario.peso,
+			sexo: usuario.sexo,
 			endereco: usuario.endereco,
-			telefone: usuario.telefone
+			cep: usuario.cep,
+			// Inclua outros campos necessários, exceto dados sensíveis, como senha
 		});
 	} catch (error) {
 		res.status(500).json({ message: 'Erro ao buscar informações do usuário.' });

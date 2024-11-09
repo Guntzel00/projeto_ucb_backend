@@ -39,6 +39,11 @@ exports.cadastrarUsuario = async (usuarioData) => {
 
 	// Gera o código de recuperação e adiciona ao usuário
 	usuarioData.codigoRecuperacao = gerarCodigoRecuperacao();
+
+	// Gera o salt e faz o hash da senha antes de armazenar
+	const salt = await bcrypt.genSalt(10);
+	usuarioData.senha = await bcrypt.hash(usuarioData.senha, salt);
+
 	const usuario = new Usuario(usuarioData);
 
 	// Envia o código de recuperação por e-mail
@@ -121,10 +126,10 @@ exports.atualizarSenha = async (email, novaSenha) => {
 
 		// Opcionalmente, remova o código de recuperação após o uso
 		usuario.codigoRecuperacao = null;
-		
+
 		// Salva o usuário com a nova senha
 		await usuario.save();
-		
+
 		// Gerar um novo token JWT após a atualização da senha
 		const token = jwt.sign(
 			{ _id: usuario._id, email: usuario.email },
@@ -135,7 +140,7 @@ exports.atualizarSenha = async (email, novaSenha) => {
 		// Retornar o token junto com a confirmação de sucesso
 		return { success: true, token };
 	}
-	
+
 	// Retorna falso se o usuário não foi encontrado
 	return { success: false };
 };
