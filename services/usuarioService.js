@@ -92,7 +92,7 @@ exports.obterPorId = async (id) => {
 
 // Atualizar informações do usuário
 exports.atualizarUsuario = async (id, atualizacaoData) => {
-	return await Usuario.findByIdAndUpdate(id, atualizacaoData, {
+	return await Usuario.findByIdAndUpdate(id, { $set: atualizacaoData }, {
 		new: true,
 		runValidators: true,
 	}).select('-senha'); // Exclui a senha da resposta

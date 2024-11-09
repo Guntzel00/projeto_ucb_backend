@@ -149,9 +149,10 @@ exports.redefinirSenha = async (req, res) => {
 // Atualizar informações do usuário
 exports.atualizarUsuario = async (req, res) => {
 	try {
-		const usuarioId = req.params.id;
+		const usuarioId = req.user._id; // ID do usuário autenticado via token
 		const atualizacaoData = req.body;
 
+		// Atualizar o usuário com base no _id autenticado
 		const usuarioAtualizado = await UsuarioService.atualizarUsuario(usuarioId, atualizacaoData);
 
 		if (!usuarioAtualizado) {
@@ -163,3 +164,4 @@ exports.atualizarUsuario = async (req, res) => {
 		res.status(500).json({ message: 'Erro ao atualizar informações do usuário.' });
 	}
 };
+
