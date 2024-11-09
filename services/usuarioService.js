@@ -82,7 +82,15 @@ exports.listarTodosUsuarios = async () => {
 
 // Buscar usuário pelo ID
 exports.obterPorId = async (id) => {
-	return await Usuario.findById(id).select('-senha'); // Excluir a senha da resposta
+	return await Usuario.findById(id).select('-senha'); // Exclui a senha da resposta
+};
+
+// Atualizar informações do usuário
+exports.atualizarUsuario = async (id, atualizacaoData) => {
+	return await Usuario.findByIdAndUpdate(id, atualizacaoData, {
+		new: true,
+		runValidators: true,
+	}).select('-senha'); // Exclui a senha da resposta
 };
 
 // Função para gerar um novo código de recuperação e enviá-lo por e-mail

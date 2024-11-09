@@ -20,7 +20,7 @@ app.use('/api/agendamentos', require('./routes/agendamentoRoutes'));
 app.use('/api/banco-sangue', require('./routes/bancoSangueRoutes'));
 app.use('/api/exames', require('./routes/exameRoutes'));
 app.use('/api/termo', require('./routes/termoDoacaoRoutes'));
-app.use('/api/usuarios', require('./routes/usuarioRoutes'));
+app.use('/api/usuarios', require('./routes/usuarioRoutes')); // Atualização: rota de usuário ajustada
 app.use('/api/centros-doacao', require('./routes/centroDoacaoRoutes')); // Rota para centros de doação
 app.use('/api/artigos', require('./routes/artigoRoutes'));
 

@@ -67,25 +67,25 @@ exports.listarUsuarios = async (req, res) => {
 // Obter informações do usuário autenticado
 exports.obterUsuario = async (req, res) => {
 	try {
-		// O `req.user` é adicionado pelo `authMiddleware`
-		const usuarioId = req.user._id;
+		const usuarioId = req.user._id; // Obtém o ID do usuário a partir do token
 
-		// Consultar o banco de dados pelo ID do usuário
 		const usuario = await UsuarioService.obterPorId(usuarioId);
 
 		if (!usuario) {
 			return res.status(404).json({ message: 'Usuário não encontrado' });
 		}
 
-		// Retornar os dados do usuário, exceto a senha
+		// Retorna todos os campos solicitados, incluindo `id`, `cep` e `endereco`
 		res.json({
-			_id: usuario._id,
-			nome: usuario.nome,
+			id: usuario._id,
 			email: usuario.email,
-			cpf: usuario.cpf,
-			telefone: usuario.telefone,
+			peso: usuario.peso,
 			dataNascimento: usuario.dataNascimento,
-			// Inclua outros campos necessários, exceto dados sensíveis, como senha
+			cep: usuario.cep,
+			rg: usuario.rg,
+			cpf: usuario.cpf,
+			endereco: usuario.endereco,
+			telefone: usuario.telefone
 		});
 	} catch (error) {
 		res.status(500).json({ message: 'Erro ao buscar informações do usuário.' });
@@ -139,5 +139,23 @@ exports.redefinirSenha = async (req, res) => {
 		}
 	} catch (error) {
 		res.status(500).json({ message: 'Erro ao redefinir a senha.' });
+	}
+};
+
+// Atualizar informações do usuário
+exports.atualizarUsuario = async (req, res) => {
+	try {
+		const usuarioId = req.params.id;
+		const atualizacaoData = req.body;
+
+		const usuarioAtualizado = await UsuarioService.atualizarUsuario(usuarioId, atualizacaoData);
+
+		if (!usuarioAtualizado) {
+			return res.status(404).json({ message: 'Usuário não encontrado' });
+		}
+
+		res.json({ message: 'Usuário atualizado com sucesso', usuario: usuarioAtualizado });
+	} catch (error) {
+		res.status(500).json({ message: 'Erro ao atualizar informações do usuário.' });
 	}
 };
