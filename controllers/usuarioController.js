@@ -79,12 +79,17 @@ exports.obterUsuario = async (req, res) => {
 
 		// Retornar os dados do usuário, exceto a senha
 		res.json({
-			_id: usuario._id,
 			nome: usuario.nome,
+			sobrenome: usuario.sobrenome,
 			email: usuario.email,
-			cpf: usuario.cpf,
 			telefone: usuario.telefone,
+			cpf: usuario.cpf,
+			rg: usuario.rg,
 			dataNascimento: usuario.dataNascimento,
+			peso: usuario.peso,
+			sexo: usuario.sexo,
+			endereco: usuario.endereco,
+			cep: usuario.cep,
 			// Inclua outros campos necessários, exceto dados sensíveis, como senha
 		});
 	} catch (error) {
